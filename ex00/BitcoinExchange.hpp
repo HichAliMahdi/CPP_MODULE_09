@@ -5,22 +5,22 @@
 #include <string>
 #include <iostream>
 
-class BitcoinExchange
-{
+class BitcoinExchange {
     private:
-        std::map<std::string, double> _database;
+        std::map<std::string, double> _db;
+
         bool isValidDate(const std::string& date);
-        bool isValidValue(const std::string& valueStr, double& value);
-        std::string trim(const std::string& str);
+        bool isValidValue(const std::string& val, double& v);
+        std::string trim(const std::string& s);
         double findClosestRate(const std::string& date);
     public:
         BitcoinExchange();
         BitcoinExchange(const BitcoinExchange& other);
         BitcoinExchange& operator=(const BitcoinExchange& other);
         ~BitcoinExchange();
-
-        bool loadDatabase(const std::string& filename = "data.csv");
-        void processInputFile(const std::string& filename);
+    
+        bool loadDatabase(const std::string& file = "data.csv");
+        void processInputFile(const std::string& file);
 };
 
 #endif
