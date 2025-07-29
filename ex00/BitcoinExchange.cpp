@@ -55,3 +55,16 @@ bool BitcoinExchange::isValidDate(const std::string& date) {
     return true;
 }
 
+bool BitcoinExchange::isValidValue(const std::string& val, double& v) {
+    char* end;
+    v = std::strtod(val.c_str(), &end);
+    if (*end != '\0')
+        return false;
+    if (v < 0 || v > 1000)
+        return false;
+    return true;
+}
+
+double BitcoinExchange::findClosestRate(const std::string& date) {
+    std::map<std::string, double>::iterator it = _db.upper_bound(date);
+}
