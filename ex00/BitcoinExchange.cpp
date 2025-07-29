@@ -67,4 +67,38 @@ bool BitcoinExchange::isValidValue(const std::string& val, double& v) {
 
 double BitcoinExchange::findClosestRate(const std::string& date) {
     std::map<std::string, double>::iterator it = _db.upper_bound(date);
+    if (it == _db.begin())
+        return -1;
+    --it;
+    return it->second;
 }
+
+bool BitcoinExchange::loadDatabase(const std::string& file) {
+    std::ifstream f(file.c_str());
+    if (!f.is_open()) {
+        std::cerr << "Error: could not open database file." << std::endl;
+        return false;
+    }
+
+    std::string line;
+    bool first = true;
+
+    while (std::getline(f, line)) {
+        if (first) {
+            first = false;
+            continue;
+        }
+        size_t pos = line.find(',');
+        if (pos == std::string::npos)
+            continue;
+        std::string date = trim(line.substr(0, pos));
+        std::string val = trim(line.substr(pos + 1));
+        if (isValidDate(date)) {
+            double v = std::strtod(val.c_str(), NULL);
+            _db[date] = v;
+        }
+    }
+    f.close();
+    return !_db.empty();
+}
+
