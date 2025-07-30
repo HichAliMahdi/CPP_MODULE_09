@@ -14,7 +14,20 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& src) {
 
 PmergeMe::~PmergeMe() {}
 
-bool PmergeMe::validateInput(const std::string& token) {
+std::vector<int> PmergeMe::createMainChain(const std::vector<std::pair<int, int>>& pairs) {
+    std::vector<int> mainChain;
+    if (pairs.empty()) return mainChain;
+    
+    mainChain.push_back(pairs[0].first);
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        mainChain.push_back(pairs[i].second);
+    }
+    
+    return mainChain;
+}
+
+bool PmergeMe::validateInput(const std::string &token)
+{
     if (token.empty()) return false;
     
     for (size_t idx = 0; idx < token.length(); ++idx) {
