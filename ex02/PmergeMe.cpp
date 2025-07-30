@@ -55,3 +55,38 @@ void PmergeMe::processArguments(int count, char** args) {
         throw std::runtime_error("Error");
     }
 }
+
+double PmergeMe::getTimestamp() {
+    struct timeval timeInfo;
+    gettimeofday(&timeInfo, NULL);
+    return timeInfo.tv_sec * 1000000.0 + timeInfo.tv_usec;
+}
+
+// Generate Jacobsthal numbers: J(n) = J(n-1) + 2*J(n-2), with J(0)=0, J(1)=1
+size_t PmergeMe::getJacobsthalNumber(size_t n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    
+    size_t j0 = 0, j1 = 1;
+    for (size_t i = 2; i <= n; ++i) {
+        size_t temp = j1 + 2 * j0;
+        j0 = j1;
+        j1 = temp;
+    }
+    return j1;
+}
+
+std::vector<size_t> PmergeMe::generateJacobsthalSequence(size_t n) {
+    std::vector<size_t> sequence;
+    if (n == 0) return sequence;
+    
+    size_t i = 1;
+    while (true) {
+        size_t jacob = getJacobsthalNumber(i);
+        if (jacob >= n) break;
+        sequence.push_back(jacob);
+        ++i;
+    }
+    return sequence;
+}
+
