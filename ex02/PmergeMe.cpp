@@ -90,3 +90,52 @@ std::vector<size_t> PmergeMe::generateJacobsthalSequence(size_t n) {
     return sequence;
 }
 
+// Ford-Johnson algorithm for vector
+void PmergeMe::fordJohnsonSort(std::vector<int>& data) {
+    size_t n = data.size();
+    if (n <= 1) return;
+    
+    std::vector<std::pair<int, int>> pairs;
+    bool hasStraggler = (n % 2 == 1);
+    int straggler = hasStraggler ? data[n - 1] : 0;
+    
+    for (size_t i = 0; i < n - (hasStraggler ? 1 : 0); i += 2) {
+        int a = data[i];
+        int b = data[i + 1];
+        if (a > b) std::swap(a, b);
+        pairs.push_back(std::make_pair(a, b));
+    
+    if (pairs.size() > 1) {
+        std::vector<int> largerElements;
+        for (size_t i = 0; i < pairs.size(); ++i) {
+            largerElements.push_back(pairs[i].second);
+        }
+        
+        fordJohnsonSort(largerElements);
+        
+        std::vector<std::pair<int, int>> sortedPairs;
+        for (size_t i = 0; i < largerElements.size(); ++i) {
+            for (size_t j = 0; j < pairs.size(); ++j) {
+                if (pairs[j].second == largerElements[i]) {
+                    sortedPairs.push_back(pairs[j]);
+                    break;
+                }
+            }
+        }
+        pairs = sortedPairs;
+    }
+    
+    std::vector<int> mainChain = createMainChain(pairs);
+    
+    std::vector<int> pending;
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        pending.push_back(pairs[i].first);
+    }
+    if (hasStraggler) {
+        pending.push_back(straggler);
+    }
+    
+    insertPendingElements(mainChain, pending);
+    
+    data = mainChain;
+}
