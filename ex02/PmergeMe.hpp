@@ -9,6 +9,9 @@
 #include <ctime>
 #include <sys/time.h>
 #include <algorithm>
+#include <cctype>
+#include <utility>
+#include <cstdlib>
 
 class PmergeMe {
     private:
@@ -35,8 +38,8 @@ class PmergeMe {
         static size_t binarySearchInsertPos(const std::deque<int>& arr, int value, 
                                           size_t left, size_t right);
     
-        // Helper utilities
-        static bool validateInput(const std::string& token);
+        // Helper utilities - Updated validation method
+        static bool isValidInteger(const std::string& str);
         static int convertToInteger(const std::string& token);
 
     public:

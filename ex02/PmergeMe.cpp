@@ -1,4 +1,6 @@
 #include "PmergeMe.hpp"
+#include <utility>
+#include <cstdlib>
 
 PmergeMe::PmergeMe() {}
 
@@ -14,20 +16,28 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& src) {
 
 PmergeMe::~PmergeMe() {}
 
-bool PmergeMe::validateInput(const std::string& token) {
-    if (token.empty()) return false;
+bool PmergeMe::isValidInteger(const std::string& str) {
+    if (str.empty()) return false;
     
-    for (size_t idx = 0; idx < token.length(); ++idx) {
-        if (!std::isdigit(token[idx])) return false;
+    size_t i = 0;
+    if (str[0] == '+') i = 1;
+    else if (str[0] == '-') return false; // No negative numbers
+    
+    if (i >= str.length()) return false;
+    
+    for (; i < str.length(); ++i) {
+        if (!std::isdigit(str[i])) return false;
     }
-    return true;
+    
+    // Check for overflow
+    std::istringstream iss(str);
+    long long num;
+    iss >> num;
+    return iss.eof() && num >= 0 && num <= 2147483647;
 }
 
 int PmergeMe::convertToInteger(const std::string& token) {
-    std::istringstream stream(token);
-    int value;
-    stream >> value;
-    return value;
+    return std::atoi(token.c_str());
 }
 
 void PmergeMe::processArguments(int count, char** args) {
@@ -38,7 +48,7 @@ void PmergeMe::processArguments(int count, char** args) {
     for (int idx = 1; idx < count; ++idx) {
         std::string current = args[idx];
         
-        if (!validateInput(current)) {
+        if (!isValidInteger(current)) {
             throw std::runtime_error("Error");
         }
         
