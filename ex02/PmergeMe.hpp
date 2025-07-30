@@ -12,21 +12,28 @@
 
 class PmergeMe {
     private:
-        std::vector<int> _primary;
-        std::deque<int> _secondary;
+        std::vector<int> _vectorData;
+        std::deque<int> _dequeData;
     
-        // Core sorting utilities
-        static std::vector<int> calculateSequence(int limit);
+        // Jacobsthal number generation
+        static std::vector<size_t> generateJacobsthalSequence(size_t n);
+        static size_t getJacobsthalNumber(size_t n);
     
-        // Primary container algorithms
-        static void mergeInsertAlgorithm(std::vector<int>& data);
-        static void binaryInsertionProcess(std::vector<int>& data, int start, int end);
-        static void combineSegments(std::vector<int>& data, int left, int center, int right);
+        // Ford-Johnson algorithm for vector
+        static void fordJohnsonSort(std::vector<int>& data);
+        static std::vector<int> createMainChain(const std::vector<std::pair<int, int>>& pairs);
+        static void insertPendingElements(std::vector<int>& mainChain, 
+                                        const std::vector<int>& pending);
+        static size_t binarySearchInsertPos(const std::vector<int>& arr, int value, 
+                                          size_t left, size_t right);
     
-        // Secondary container algorithms
-        static void mergeInsertAlgorithm(std::deque<int>& data);
-        static void binaryInsertionProcess(std::deque<int>& data, int start, int end);
-        static void combineSegments(std::deque<int>& data, int left, int center, int right);
+        // Ford-Johnson algorithm for deque
+        static void fordJohnsonSort(std::deque<int>& data);
+        static std::deque<int> createMainChain(const std::vector<std::pair<int, int>>& pairs);
+        static void insertPendingElements(std::deque<int>& mainChain, 
+                                        const std::vector<int>& pending);
+        static size_t binarySearchInsertPos(const std::deque<int>& arr, int value, 
+                                          size_t left, size_t right);
     
         // Helper utilities
         static bool validateInput(const std::string& token);
@@ -41,10 +48,11 @@ class PmergeMe {
         ~PmergeMe();
     
         void processArguments(int count, char** args);
-        void executePrimarySort();
-        void executeSecondarySort();
+        void executeVectorSort();
+        void executeDequeSort();
         void showInitialState() const;
         void showFinalState() const;
+        size_t getSize() const { return _vectorData.size(); }
 };
 
 #endif
