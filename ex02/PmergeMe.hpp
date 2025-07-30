@@ -21,17 +21,17 @@ class PmergeMe {
     
         // Ford-Johnson algorithm for vector
         static void fordJohnsonSort(std::vector<int>& data);
-        static std::vector<int> createMainChain(const std::vector<std::pair<int, int>>& pairs);
-        static void insertPendingElements(std::vector<int>& mainChain, 
-                                        const std::vector<int>& pending);
+        static std::vector<int> createMainChainVector(const std::vector<std::pair<int, int>>& pairs);
+        static void insertPendingElementsVector(std::vector<int>& mainChain, 
+                                               const std::vector<int>& pending);
         static size_t binarySearchInsertPos(const std::vector<int>& arr, int value, 
                                           size_t left, size_t right);
     
         // Ford-Johnson algorithm for deque
         static void fordJohnsonSort(std::deque<int>& data);
-        static std::deque<int> createMainChain(const std::vector<std::pair<int, int>>& pairs);
-        static void insertPendingElements(std::deque<int>& mainChain, 
-                                        const std::vector<int>& pending);
+        static std::deque<int> createMainChainDeque(const std::vector<std::pair<int, int>>& pairs);
+        static void insertPendingElementsDeque(std::deque<int>& mainChain, 
+                                              const std::vector<int>& pending);
         static size_t binarySearchInsertPos(const std::deque<int>& arr, int value, 
                                           size_t left, size_t right);
     
