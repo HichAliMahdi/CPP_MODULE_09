@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++17
 SRCDIR = .
 OBJDIR = obj
 
-SOURCES = 
+SOURCES = PmergeMe.cpp main.cpp
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 $(NAME): $(OBJECTS)
