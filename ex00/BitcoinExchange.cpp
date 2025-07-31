@@ -135,7 +135,7 @@ void BitcoinExchange::processInputFile(const std::string& file) {
             if (v < 0) {
                 std::cerr << "Error: not a positive number." << std::endl;
             } else if (v > 1000) {
-                std::cerr << "Error: too large a number." << std::endl;
+                std::cerr << "Error: too large number." << std::endl;
             } else {
                 std::cerr << "Error: invalid number format." << std::endl;
             }
