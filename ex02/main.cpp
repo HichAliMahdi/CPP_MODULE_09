@@ -23,9 +23,9 @@ int main(int argc, char* argv[]){
         size_t elementCount = vectorProcessor.getSize();
         std::cout << std::fixed << std::setprecision(5);
         std::cout << "Time to process a range of " << elementCount 
-                  << " elements with std::vector : " << vectorTime << " us" << std::endl;
+                  << " elements with std::vector : " << vectorTime << " µs" << std::endl;
         std::cout << "Time to process a range of " << elementCount 
-                  << " elements with std::deque : " << dequeTime << " us" << std::endl;
+                  << " elements with std::deque : " << dequeTime << " µs" << std::endl;
         
     } catch (const std::exception& error) {
         std::cerr << error.what() << std::endl;
